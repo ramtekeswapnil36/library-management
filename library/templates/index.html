@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library System</title>
+</head>
+
+<body>
+    <h1>Library System</h1>
+
+    <div id="books">
+        <h2>Books</h2>
+        <ul id="book-list"></ul>
+    </div>
+
+    <div id="students">
+        <h2>Students</h2>
+        <ul id="student-list"></ul>
+    </div>
+
+    <div id="borrowed-books">
+        <h2>Borrowed Books</h2>
+        <ul id="borrowed-book-list"></ul>
+    </div>
+
+    <div id="librarians">
+        <h2>Librarians</h2>
+        <ul id="librarian-list"></ul>
+    </div>
+
+    <script>
+        // Fetch data from APIs and display it
+        function fetchData(endpoint, targetElement, propertyName) {
+            fetch(endpoint)
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById(targetElement);
+                    data.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = item[propertyName];
+                        list.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        // Fetch books data
+        fetchData('/books/', 'book-list', 'title');
+
+        // Fetch students data
+        fetchData('/students/', 'student-list', 'name');
+
+        // Fetch borrowed books data
+        fetchData('/borrowed-books/', 'borrowed-book-list', 'book');
+
+        // Fetch librarians data
+        fetchData('/librarians/', 'librarian-list', 'name');
+    </script>
+</body>
+
+</html>
